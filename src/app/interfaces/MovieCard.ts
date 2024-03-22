@@ -13,5 +13,16 @@ export interface MovieCard {
   Country: string,
   Awards: string,
   Poster: string,
-  Ratings: Array<{}>
+  Ratings: Array<{}>,
+
+  Metascore: string,
+  imdbRating: string,
+  imdbVotes: string,
+  imdbID: string,
+  Type: string,
+  DVD: string,
+  BoxOffice: string,
+  Production: string,
+  Website: string,
+  Response: string
 }
