@@ -1,38 +1,51 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MovieCardComponent } from "./movie-card/movie-card.component";
-import { ApiFetchService } from '../apifetch.service';
+import { ApiFetchService } from '../services/apifetch.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MovieCard } from '../interfaces/MovieCard';
-import { HeaderComponent } from '../header/header.component';
 import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-content',
     standalone: true,
     templateUrl: './content.component.html',
-    imports: [CommonModule, FormsModule, MovieCardComponent, HttpClientModule, HeaderComponent],
+    imports: [CommonModule, FormsModule, HttpClientModule, MovieCardComponent],
     providers: [ApiFetchService]
 })
-export class ContentComponent implements OnInit {
+
+export class ContentComponent {
     public searchedTerm: string = "";
-    public searchResult$: any = [];
-    private randomNumber = Math.floor(Math.random() * 3900000);
+    public searchResult$: MovieCard[] = [];
 
-    constructor(private fetchService: ApiFetchService) { }
+    constructor(private apiFetchService: ApiFetchService) { }
 
-    ngOnInit(): void {
-        if (this.searchResult$.length == 0) {
-            do {
-                const movie = this.fetchService.getMovieById(`tt${this.randomNumber}`)
-                console.log(movie)
-                this.searchResult$.push(movie)
-            } while (this.searchResult$.length < 3)
+    // ngOnInit(): void {
+    //     if (this.searchResult$.length == 0) {
+    //         let result
+    //         do {
+    //             result = this.apiFetchService.getMovieById(`tt${this.generateRandomNumber()}`)
+    //                 .subscribe((response) => console.log(response))
+    //         } while ("Response" in result)
+
+    //         this.searchResult$.push(result)
+    //         console.log(this.searchResult$)
+    //     }
+    // }
+
+    // private generateRandomNumber(): number {
+    //     return Math.floor(Math.random() * (3900000 - 1000000) + 1000000);
+    // }
+
+    @HostListener('window:keydown', ['$event'])
+    handleKeyDown(event: KeyboardEvent) {
+        if (event.key === 'Enter') {
+            this.search();
         }
     }
 
     public search() {
-        this.fetchService.getMoviesByTitle(this.searchedTerm)
+        this.apiFetchService.getMoviesByTitle(this.searchedTerm)
             .subscribe(movies => this.searchResult$ = movies)
         this.searchedTerm = "";
     }
