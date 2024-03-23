@@ -1,10 +1,11 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MovieCardComponent } from "./movie-card/movie-card.component";
 import { ApiFetchService } from '../services/apifetch.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MovieCard } from '../interfaces/MovieCard';
 import { FormsModule } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-content',
@@ -14,11 +15,16 @@ import { FormsModule } from '@angular/forms';
     providers: [ApiFetchService]
 })
 
-export class ContentComponent {
+export class ContentComponent implements OnDestroy {
     public searchedTerm: string = "";
     public searchResult$: MovieCard[] = [];
+    private subscription: Subscription = new Subscription();
 
     constructor(private apiFetchService: ApiFetchService) { }
+
+    ngOnDestroy(): void {
+        this.subscription.unsubscribe()
+    }
 
     // ngOnInit(): void {
     //     if (this.searchResult$.length == 0) {
@@ -38,15 +44,15 @@ export class ContentComponent {
     // }
 
     @HostListener('window:keydown', ['$event'])
-    handleKeyDown(event: KeyboardEvent) {
+    handleKeyPress(event: KeyboardEvent) {
         if (event.key === 'Enter') {
             this.search();
         }
     }
 
     public search() {
-        this.apiFetchService.getMoviesByTitle(this.searchedTerm)
-            .subscribe(movies => this.searchResult$ = movies)
+        this.subscription = this.apiFetchService.getMoviesByTitle(this.searchedTerm)
+            .subscribe(movies => this.searchResult$ = movies);
         this.searchedTerm = "";
     }
 }
