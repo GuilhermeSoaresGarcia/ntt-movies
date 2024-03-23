@@ -1,20 +1,50 @@
-<div class="container d-flex justify-content-center mt-5 p-5" style="background-color: beige; border-radius: 5px;">
-  <div class="col-md-4">
-    <img src="{{movieDetails.Poster}}" alt="Poster de {{movieDetails.Title}}" class="img-fluid">
-  </div>
-  <div class="col-md-8">
-    <h5>Título: {{movieDetails.Title}}</h5>
-    <h5>Lançamento: {{movieDetails.Year}}</h5>
-    <h5>Classificação indicativa: {{movieDetails.Rated}}</h5>
-    <h5>Duração: {{movieDetails.Runtime}}</h5>
-    <h5>Gênero: {{movieDetails.Genre}}</h5>
-    <h5>Diretor(es): {{movieDetails.Director}}</h5>
-    <h5>Escritor(es): {{movieDetails.Writer}}</h5>
-    <h5>Atores: {{movieDetails.Actors}}</h5>
-    <h5>Enredo: {{movieDetails.Plot}}</h5>
-    <h5>Idioma: {{movieDetails.Language}}</h5>
-    <h5>País de origem: {{movieDetails.Country}}</h5>
-    <h5>Premiações: {{movieDetails.Awards}}</h5>
-    <h5>Nota no IMDB: {{movieDetails.imdbRating}}</h5>
+<!-- Tentei utilizar o placeholder com glowing effect do Bootstrap mas não funcionou, então criei divs
+para preencher os blocos  -->
+<div *ngIf="isLoading; else movieDetailsTemplate">
+  <div class="container d-flex justify-content-center mt-5 p-5" aria-hidden="true"
+    style="background-color: beige; border-radius: 5px;">
+    <div class="col-md-4">
+      <div class="mb-3" style="width: 71px; height: 31px; background: lightgray;"></div>
+      <div style="width: 267px; height: 400px; background: lightgray;"></div>
+    </div>
+    <div class="col-md-8">
+      <div class="mb-3" style="width: 80%; height: 24px; background: lightgray;"></div>
+      <div class="mb-3" style="width: 80%; height: 24px; background: lightgray;"></div>
+      <div class="mb-3" style="width: 80%; height: 24px; background: lightgray;"></div>
+      <div class="mb-3" style="width: 80%; height: 24px; background: lightgray;"></div>
+      <div class="mb-3" style="width: 80%; height: 24px; background: lightgray;"></div>
+      <div class="mb-3" style="width: 80%; height: 24px; background: lightgray;"></div>
+      <div class="mb-3" style="width: 80%; height: 24px; background: lightgray;"></div>
+      <div class="mb-3" style="width: 80%; height: 24px; background: lightgray;"></div>
+      <div class="mb-3" style="width: 80%; height: 24px; background: lightgray;"></div>
+      <div class="mb-3" style="width: 80%; height: 24px; background: lightgray;"></div>
+      <div class="mb-3" style="width: 80%; height: 24px; background: lightgray;"></div>
+      <div class="mb-3" style="width: 80%; height: 24px; background: lightgray;"></div>
+    </div>
   </div>
 </div>
+
+<ng-template #movieDetailsTemplate>
+  <div class="container d-flex justify-content-center mt-5 p-5" style="background-color: beige; border-radius: 5px;">
+    <div class="col-md-4">
+      <button (click)="getBackToWhereYouOnceBelonged()" class="btn btn-danger btn-sm mb-3">&larr; Voltar</button>
+      <img src="{{movieDetails?.Poster}}" alt="Poster de {{movieDetails?.Title}}" class="img-fluid"
+        style="max-height: 400px;">
+    </div>
+    <div class="col-md-8">
+      <h5>Título: {{movieDetails?.Title}}</h5>
+      <h5>Lançamento: {{movieDetails?.Year}}</h5>
+      <h5>Classificação indicativa: {{movieDetails?.Rated}}</h5>
+      <h5>Duração: {{movieDetails?.Runtime}}</h5>
+      <h5>Gênero: {{movieDetails?.Genre}}</h5>
+      <h5>Diretor(es): {{movieDetails?.Director}}</h5>
+      <h5>Escritor(es): {{movieDetails?.Writer}}</h5>
+      <h5>Atores: {{movieDetails?.Actors}}</h5>
+      <h5>Enredo: {{movieDetails?.Plot}}</h5>
+      <h5>Idioma: {{movieDetails?.Language}}</h5>
+      <h5>País de origem: {{movieDetails?.Country}}</h5>
+      <h5>Premiações: {{movieDetails?.Awards}}</h5>
+      <h5>Nota no IMDB: {{movieDetails?.imdbRating}}</h5>
+    </div>
+  </div>
+</ng-template>
