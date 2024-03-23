@@ -18,6 +18,7 @@ import { Subscription } from 'rxjs';
 export class ContentComponent implements OnDestroy {
     public searchedTerm: string = "";
     public searchResult$: MovieCard[] = [];
+    public isLoading: boolean = false;
     private subscription: Subscription = new Subscription();
 
     constructor(private apiFetchService: ApiFetchService) { }
@@ -26,22 +27,21 @@ export class ContentComponent implements OnDestroy {
         this.subscription.unsubscribe()
     }
 
-    // ngOnInit(): void {
-    //     if (this.searchResult$.length == 0) {
-    //         let result
-    //         do {
-    //             result = this.apiFetchService.getMovieById(`tt${this.generateRandomNumber()}`)
-    //                 .subscribe((response) => console.log(response))
-    //         } while ("Response" in result)
+    ngOnInit(): void {
+        console.log(this.fetchRandomMovies())
+    }
 
-    //         this.searchResult$.push(result)
-    //         console.log(this.searchResult$)
-    //     }
-    // }
+    fetchRandomMovies(): void {
+        const searchedTerms = ["batman", "superman", "spider", "earth", "wind", "fire", "die", "day", "color", "love"];
+        this.subscription = this.apiFetchService
+            .getMoviesByTitle(searchedTerms[this.generateRandomNumber()])
+            .subscribe(movies => this.searchResult$ = movies)
+    }
 
-    // private generateRandomNumber(): number {
-    //     return Math.floor(Math.random() * (3900000 - 1000000) + 1000000);
-    // }
+
+    private generateRandomNumber(): number {
+        return Math.floor(Math.random() * 10);
+    }
 
     @HostListener('window:keydown', ['$event'])
     handleKeyPress(event: KeyboardEvent) {
@@ -51,8 +51,10 @@ export class ContentComponent implements OnDestroy {
     }
 
     public search() {
+        this.isLoading = true;
         this.subscription = this.apiFetchService.getMoviesByTitle(this.searchedTerm)
             .subscribe(movies => this.searchResult$ = movies);
+        setInterval(() => this.isLoading = false, 700);
         this.searchedTerm = "";
     }
 }
