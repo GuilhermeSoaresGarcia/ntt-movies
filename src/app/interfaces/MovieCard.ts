@@ -14,7 +14,6 @@ export interface MovieCard {
   Awards: string,
   Poster: string,
   Ratings: Array<{}>,
-
   Metascore: string,
   imdbRating: string,
   imdbVotes: string,
