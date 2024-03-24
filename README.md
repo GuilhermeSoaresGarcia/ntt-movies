@@ -8,7 +8,7 @@ O objetivo deste projeto compreender um pouco o funcionamento e alguns conceitos
 
 ## Como executar
 
-Clone o projeto e rode `ng serve` ou `npm start` para executar o projeto em modo desenvolvimento. Acesse `http://localhost:4200/`.
+Clone o projeto, execute `npm install` para instalar as dependências (como usei o NgRx esse passo é necessário) e rode `ng serve` ou `npm start` para executar o projeto em modo desenvolvimento. Acesse `http://localhost:4200/`.
 Além disso, este projeto está com deploy dispónivel em `https://ntt-movies-roan.vercel.app/`.
 
 ## Observações
