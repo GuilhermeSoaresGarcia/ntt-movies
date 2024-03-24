@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { MovieCard } from '../../interfaces/MovieCard';
+import { MovieCard } from '../interfaces/MovieCard';
 import { CommonModule } from '@angular/common';
 
 @Component({

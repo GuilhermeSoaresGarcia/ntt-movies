@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MovieCard } from '../../../interfaces/MovieCard';
+import { MovieCard } from '../../interfaces/MovieCard';
 import { ActivatedRoute } from '@angular/router';
-import { ApiFetchService } from '../../../services/apifetch.service';
+import { ApiFetchService } from '../../services/apifetch.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { Location } from '@angular/common';

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MovieCardComponent } from "./movie-card/movie-card.component";
+import { MovieCardComponent } from "../movie-card/movie-card.component";
 import { ApiFetchService } from '../services/apifetch.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MovieCard } from '../interfaces/MovieCard';
