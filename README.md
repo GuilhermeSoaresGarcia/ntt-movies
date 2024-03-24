@@ -13,9 +13,9 @@ Além disso, este projeto está com deploy dispónivel em `https://ntt-movies-ro
 
 ## Observações
 
-- Eu nunca havia trabalhado com Angular mas tive uma experiência prévia com React, então embora eu não tenha conseguido entender totalmente os ciclos de vida dos componentes do Angular, acho que o conceito é um tanto parecido. De qualquer modo, acho que algumas das dificuldades que estou tendo com uma funcionalidade específica da aplicação (fazer o favoritos funcionar com o localstorage) tem a ver com isso;
+- Eu nunca havia trabalhado com Angular mas tive uma experiência prévia com React, então embora eu não tenha conseguido entender totalmente os ciclos de vida dos componentes do Angular, acho que o conceito é um tanto parecido;
 - Foram apenas 5 dias estudando o framework, então apesar de eu não ter conseguido fazer tudo o que gostaria (simplesmente porque não sei como mesmo) fiquei satisfeito com o que vou conseguir entregar no prazo final;
-- Embora eu tenha trabalhado com assincronia em React, não consegui entender aqui o uso dos Observables e/ou Subscriptions (que, pelo que compreendi até o momento, são os modos que o Angular trata as requisições assíncronas.) Não sei se é possível usar o async/await ou then no Angular, mas é algo que tenho que explorar um pouco mais.
-- Consegui implementar o NgRx e com isso a barra de busca está no header e funciona de modo global! A documentação para essa biblioteca no Angular 17 está muito escassa, então foi muito trabalhoso conseguir configurar tudo. Enfim, acredito que vá ser com esse recurso, também, que conseguirei fazer o favoritos funcionar como esperado.
+- Embora eu tenha trabalhado com assincronia em React, não consegui entender muito bem aqui o uso dos Observables e/ou Subscriptions (que, pelo que compreendi até o momento, são os modos que o Angular trata as requisições assíncronas.) Não sei se é possível usar o async/await ou then no Angular, mas é algo que tenho que explorar um pouco mais;
+- Consegui implementar o NgRx e com isso a barra de busca está no header e funciona de modo global! A documentação para essa biblioteca no Angular 17 está muito escassa, então foi muito trabalhoso conseguir configurar tudo, mas também muito satisfatório quando deu certo! :)
 
 
