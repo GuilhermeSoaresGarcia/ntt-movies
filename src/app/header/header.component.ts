@@ -37,9 +37,9 @@ export class HeaderComponent {
   public search() {
     this.subscription = this.apiFetchService.getMoviesByTitle(this.searchedTerm)
       .subscribe((movies) => {
+        this.router.navigate([""]);
         this.store.dispatch(searchResult({ results: movies }));
       });
-    this.router.navigate([""]);
     this.searchedTerm = "";
   }
 }
