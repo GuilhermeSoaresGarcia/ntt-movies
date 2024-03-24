@@ -1,11 +1,12 @@
-import { Component, HostListener, OnDestroy } from '@angular/core';
+import { Component, HostListener, OnDestroy, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MovieCardComponent } from "./movie-card/movie-card.component";
 import { ApiFetchService } from '../services/apifetch.service';
 import { HttpClientModule } from '@angular/common/http';
 import { MovieCard } from '../interfaces/MovieCard';
 import { FormsModule } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { Store, select } from '@ngrx/store';
 
 @Component({
     selector: 'app-content',
@@ -16,19 +17,32 @@ import { Subscription } from 'rxjs';
 })
 
 export class ContentComponent implements OnDestroy {
-    public searchedTerm: string = "";
     public searchResult$: MovieCard[] = [];
     public isLoading: boolean = false;
     private subscription: Subscription = new Subscription();
+    private store = inject(Store);
+    public searchTerm$: Observable<MovieCard[]>;
 
-    constructor(private apiFetchService: ApiFetchService) { }
+    constructor(private apiFetchService: ApiFetchService) {
+        this.searchTerm$ = this.store.pipe(select('search', 'searchResults'))
+    }
+
+
+    ngOnInit(): void {
+        this.isLoading = true;
+        if (this.searchTerm$ == null) {
+            this.fetchRandomMovies()
+        } else {
+            this.subscription = this.searchTerm$.subscribe((movies) => {
+                this.searchResult$ = movies
+            });
+        }
+        this.isLoading = false;
+    }
+
 
     ngOnDestroy(): void {
         this.subscription.unsubscribe()
-    }
-
-    ngOnInit(): void {
-        console.log(this.fetchRandomMovies())
     }
 
     fetchRandomMovies(): void {
@@ -38,23 +52,7 @@ export class ContentComponent implements OnDestroy {
             .subscribe(movies => this.searchResult$ = movies)
     }
 
-
     private generateRandomNumber(): number {
         return Math.floor(Math.random() * 10);
-    }
-
-    @HostListener('window:keydown', ['$event'])
-    handleKeyPress(event: KeyboardEvent) {
-        if (event.key === 'Enter') {
-            this.search();
-        }
-    }
-
-    public search() {
-        this.isLoading = true;
-        this.subscription = this.apiFetchService.getMoviesByTitle(this.searchedTerm)
-            .subscribe(movies => this.searchResult$ = movies);
-        setInterval(() => this.isLoading = false, 700);
-        this.searchedTerm = "";
     }
 }

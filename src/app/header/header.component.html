@@ -1,9 +1,22 @@
 <header class="bg-dark text-white py-4" style="opacity: 0.8;">
-  <div class="container">
-    <div class="row justify-content-center align-items-center">
-      <div class="col-md-6 text-center">
+  <div class="container" style="max-width: 1000px;">
+    <div class="row align-items-center">
+      <div class="col-md-6">
         <h1>NTT Movies</h1>
-      </div>    
+      </div>
+      <div class="col-md-6">
+        <div class="d-flex justify-content-end">
+          <div class="input-group">
+            <input [(ngModel)]="searchedTerm" type="text" class="form-control" placeholder="Buscar filme..."
+              (keypress.enter)="search()">
+            <div class="input-group-append">
+              <button (click)="search()" class="btn btn-danger" type="button">
+                <img src="../../assets/buttons/magnifying-glass.svg" height="20px" alt="Botão buscar" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </header>
